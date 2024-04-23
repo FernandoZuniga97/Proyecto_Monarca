@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
-  runApp(LoginScreen());
+  runApp(Login());
 }
 
-class LoginScreen extends StatelessWidget {
+class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Login'),
+          title: const Text('Login'),
         ),
         body: Center(
           child: LoginForm(),
