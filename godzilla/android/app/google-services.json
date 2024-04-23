@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "691939238952",
+    "project_id": "organizador-f508c",
+    "storage_bucket": "organizador-f508c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691939238952:android:43a86899f8ba6911bf811d",
+        "android_client_info": {
+          "package_name": "com.organizador.godzilla"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEI9E4Mk0lAq40px0g_39v5bw0ne-xCBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
