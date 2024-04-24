@@ -5,7 +5,7 @@ import 'firebase_options.dart';
 //import 'package:godzilla/body/start.dart';
 import 'package:godzilla/loginandsign/login.dart';
 import 'package:flutter/material.dart';
-import 'package:godzilla/view/login/welcome_view.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
