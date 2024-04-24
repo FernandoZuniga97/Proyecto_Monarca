@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:godzilla/common/toast.dart';
+import 'package:godzilla/loginandsign/login.dart';
 import '../../common/color_extension.dart';
 import '../../widget/icon_item_row.dart';
 
@@ -65,7 +68,7 @@ class _SettingsViewState extends State<SettingsView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Code For Any",
+                  "Proyecto Monarca",
                   style: TextStyle(
                       color: TColor.white,
                       fontSize: 20,
@@ -80,7 +83,7 @@ class _SettingsViewState extends State<SettingsView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "codeforany@gmail.com",
+                  "Ejemplo.com",
                   style: TextStyle(
                       color: TColor.gray30,
                       fontSize: 12,
@@ -103,13 +106,32 @@ class _SettingsViewState extends State<SettingsView> {
                   color: TColor.gray60.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Text(
-                  "Edit profile",
-                  style: TextStyle(
-                      color: TColor.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
+                child: GestureDetector(
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).push(
+                  MaterialPageRoute(
+                  builder: (context) => const Login(),
+                  ),
+                );
+                  showToast(message: "Successfully signed out");
+                },
+                child: Container(
+                  height: 45,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: const Center(
+                    child: Text(
+                      "Cerrar sesión",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                  ),
                 ),
+              )
               ),
             ),
             Padding(

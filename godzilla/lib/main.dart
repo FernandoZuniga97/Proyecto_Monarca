@@ -3,7 +3,7 @@ import 'package:godzilla/common/color_extension.dart';
 import 'package:godzilla/view/main_tab/main_tab_view.dart';
 import 'firebase_options.dart';
 //import 'package:godzilla/body/start.dart';
-//import 'package:godzilla/login.dart';
+import 'package:godzilla/loginandsign/login.dart';
 import 'package:flutter/material.dart';
 import 'package:godzilla/view/login/welcome_view.dart';
 
@@ -22,22 +22,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Inter",
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: TColor.primary,
-          background: TColor.gray80,
-          primary: TColor.primary,
-          primaryContainer: TColor.gray60,
-          secondary: TColor.secondary,
-        ),
-        useMaterial3: false,
-      ),
-      home: const MainTabView(),
-      //routes: {
-        //'/': (context) => const Login(),
-        //'/start': (context) => const HomeView(),
-      //},
+      themeMode: ThemeMode.system,
+      darkTheme: ThemeData.dark(),
+      theme: ThemeData.light(),
+      home: const Login(),
     );
   }
 }
