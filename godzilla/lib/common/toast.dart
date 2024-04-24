@@ -11,6 +11,6 @@ void showToast({required String message}){
       timeInSecForIosWeb: 1,
       backgroundColor: const Color.fromARGB(255, 55, 34, 78),
       textColor: Colors.white,
-      fontSize: 20.0
+      fontSize: 15.0
   );
 }

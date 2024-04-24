@@ -84,6 +84,7 @@ class _LoginFormState extends State<LoginForm> {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
+        showToast(message: "Se ha iniciado sesion");
         Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const MainTabView(),
@@ -210,7 +211,8 @@ class _LoginFormState extends State<LoginForm> {
                   ElevatedButton.icon(
                     onPressed: () {
                       if(_usernameController.text == 'user'){
-                          _authenticateWithBiometrics(context);
+                        showToast(message: "Se ha iniciado sesion");
+                        _authenticateWithBiometrics(context);
                       } else {
                         showAboutDialog(
                           context: context,
@@ -251,14 +253,14 @@ class _LoginFormState extends State<LoginForm> {
     });
 
     if (user != null) {
-      showToast(message: "User is successfully signed in");
+      showToast(message: "Se ha iniciado sesion");
       Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const MainTabView()),
       (route) => false,
                       );
     } else {
-      showToast(message: "some error occured");
+      showToast(message: "Ocurrio un error");
     }
   }
   

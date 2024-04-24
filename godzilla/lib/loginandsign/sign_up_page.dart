@@ -141,14 +141,14 @@ setState(() {
   isSigningUp = false;
 });
     if (user != null) {
-      showToast(message: "User is successfully created");
+      showToast(message: "El usuario ha sido creado.");
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const Login(),
         ),
       );
     } else {
-      showToast(message: "Some error happend");
+      showToast(message: "Ocurrio un error");
     }
   }
 }

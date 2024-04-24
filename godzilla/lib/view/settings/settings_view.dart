@@ -114,7 +114,7 @@ class _SettingsViewState extends State<SettingsView> {
                   builder: (context) => const Login(),
                   ),
                 );
-                  showToast(message: "Successfully signed out");
+                  showToast(message: "Se ha cerrado la sesión");
                 },
                 child: Container(
                   height: 45,
