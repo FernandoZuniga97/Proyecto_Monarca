@@ -89,7 +89,7 @@ class _MainTabViewState extends State<MainTabView> {
                               onPressed: () {
                                 setState(() {
                                   selectTab = 2;
-                                  currentTabView = CalenderView();
+                                  currentTabView = MyApp();
                                 });
                               },
                               icon: Image.asset(
