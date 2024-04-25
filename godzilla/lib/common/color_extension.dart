@@ -17,8 +17,8 @@ class TColor {
 
   static Color get gray => const Color(0xff0E0E12);
   static Color get gray80 => const Color(0xff1C1C23);
-  static Color get gray70 => const Color(0xff353542);
-  static Color get gray60 => const Color(0xff4E4E61);
+  static Color get gray70 => Color.fromRGBO(63, 62, 76, 1);
+  static Color get gray60 => Color.fromARGB(255, 78, 97, 88);
   static Color get gray50 => const Color(0xff666680);
   static Color get gray40 => const Color(0xff83839C);
   static Color get gray30 => const Color(0xffA2A2B5);

@@ -37,15 +37,15 @@ class StatusButton extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                      color: TColor.gray40,
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 223, 223, 236),
                       fontSize: 12,
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
                   value,
-                  style: TextStyle(
-                      color: TColor.white,
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 223, 223, 236),
                       fontSize: 14,
                       fontWeight: FontWeight.w600),
                 ),

@@ -14,7 +14,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login Screen',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),
@@ -158,15 +157,15 @@ class _LoginFormState extends State<LoginForm> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 55, 34, 78),
+                    color: const Color.fromRGBO(255, 121, 102, 1),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Center(
                     child: _isSigning ? const CircularProgressIndicator(
-                      color:  Colors.white,) : const Text(
-                      "Iniciar sesion",
+                    color: Colors.white) : const Text(
+                      "Iniciar sesión",
                       style:  TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -194,7 +193,7 @@ class _LoginFormState extends State<LoginForm> {
                     child: const Text(
                       "Registrate",
                       style: TextStyle(
-                        color: Color.fromARGB(255, 55, 34, 78),
+                        color: Color.fromRGBO(63, 62, 76, 1),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -203,12 +202,18 @@ class _LoginFormState extends State<LoginForm> {
               ),
               const SizedBox(height: 50),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(63, 62, 76, 1),
+                    ),
                     onPressed: _signInWithGoogle,
-                    icon: const Icon(Icons.account_circle),
-                    label: const Text('Sign In with Google'),
+                    icon: const Icon(Icons.account_circle, color: Color.fromARGB(255, 223, 223, 236),),
+                    label: const Text('Sign In with Google', style: TextStyle(color: Color.fromARGB(255, 223, 223, 236),),),
                   ),
                   const SizedBox(height: 5),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(63, 62, 76, 1),
+                    ),
                     onPressed: () {
                       if(_usernameController.text == 'user'){
                         showToast(message: "Se ha iniciado sesion");
@@ -226,8 +231,8 @@ class _LoginFormState extends State<LoginForm> {
                         );
                       }
                     },
-                    icon: const Icon(Icons.fingerprint),
-                    label: const Text('Autenticar con huella digital'),
+                    icon: const Icon(Icons.fingerprint, color: Color.fromARGB(255, 223, 223, 236),),
+                    label: const Text('Autenticar con huella digital', style: TextStyle(color: Color.fromARGB(255, 223, 223, 236),),),
                   ),
                 ],
               ),
@@ -253,14 +258,14 @@ class _LoginFormState extends State<LoginForm> {
     });
 
     if (user != null) {
-      showToast(message: "Se ha iniciado sesion");
+      showToast(message: "Se ha iniciado sesión");
       Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const MainTabView()),
       (route) => false,
                       );
     } else {
-      showToast(message: "Ocurrio un error");
+      showToast(message: "Ocurrió un error");
     }
   }
   

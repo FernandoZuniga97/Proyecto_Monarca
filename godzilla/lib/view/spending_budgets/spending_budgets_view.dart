@@ -1,199 +1,282 @@
+//import 'dart:math';
+//import 'package:calendar_agenda/calendar_agenda.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:godzilla/common/color_extension.dart';
-import 'package:godzilla/widget/budgets_row.dart';
-import 'package:godzilla/widget/custom_arc_180_painter.dart';
+import 'package:godzilla/view/settings/settings_view.dart';
 
-import '../settings/settings_view.dart';
-
-class SpendingBudgetsView extends StatefulWidget {
-  const SpendingBudgetsView({super.key});
+class CardsView extends StatefulWidget {
+  const CardsView({super.key});
 
   @override
-  State<SpendingBudgetsView> createState() => _SpendingBudgetsViewState();
+  State<CardsView> createState() => _CardsViewState();
 }
 
-class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
-  List budgetArr = [
+class _CardsViewState extends State<CardsView> {
+  List subArr = [
+    {"name": "Spotify", "icon": "assets/img/spotify_logo.png", "price": "5.99"},
     {
-      "name": "Auto & Transport",
-      "icon": "assets/img/auto_&_transport.png",
-      "spend_amount": "25.99",
-      "total_budget": "400",
-      "left_amount": "250.01",
-      "color": TColor.secondaryG
+      "name": "YouTube Premium",
+      "icon": "assets/img/youtube_logo.png",
+      "price": "18.99"
     },
     {
-      "name": "Entertainment",
-      "icon": "assets/img/entertainment.png",
-      "spend_amount": "50.99",
-      "total_budget": "600",
-      "left_amount": "300.01",
-      "color": TColor.secondary50
+      "name": "Microsoft OneDrive",
+      "icon": "assets/img/onedrive_logo.png",
+      "price": "29.99"
+    },
+    {"name": "NetFlix", "icon": "assets/img/netflix_logo.png", "price": "15.00"}
+  ];
+
+  List carArr = [
+    {
+      "name": "code for any1",
+      "number": "**** **** **** 2197",
+      "month_year": "08/27"
     },
     {
-      "name": "Security",
-      "icon": "assets/img/security.png",
-      "spend_amount": "5.99",
-      "total_budget": "600",
-      "left_amount": "250.01",
-      "color": TColor.primary10
+      "name": "code for any2",
+      "number": "**** **** **** 2198",
+      "month_year": "09/27"
+    },
+    {
+      "name": "code for any3",
+      "number": "**** **** **** 2297",
+      "month_year": "07/27"
+    },
+    {
+      "name": "code for any4",
+      "number": "**** **** **** 2397",
+      "month_year": "05/27"
     },
   ];
 
+  SwiperController controller = SwiperController();
+
+  Widget buildSwiper() {
+    return Swiper(
+      itemCount: carArr.length,
+      customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
+        ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
+        ..addTranslate([
+          const Offset(-370.0, -40.0),
+          Offset.zero,
+          const Offset(370.0, -40.0),
+        ]),
+      fade: 1.0,
+      onIndexChanged: (index) {
+        print(index);
+      },
+      scale: 0.8,
+      itemWidth: 232.0,
+      itemHeight: 350,
+      controller: controller,
+      layout: SwiperLayout.STACK,
+      viewportFraction: 0.8,
+      itemBuilder: ((context, index) {
+        var cObj = carArr[index] as Map? ?? {};
+        return Container(
+          decoration: BoxDecoration(
+              color: TColor.gray70,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(color: Colors.black26, blurRadius: 4)
+              ]),
+          child: Stack(fit: StackFit.expand, children: [
+            Image.asset(
+              "assets/img/card_blank.png",
+              width: 232.0,
+              height: 350,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Image.asset("assets/img/mastercard_logo.png", width: 50),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Virtual Card",
+                  style: TextStyle(
+                      color: TColor.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 115,
+                ),
+                Text(
+                  cObj["name"] ?? "Code For Any",
+                  style: TextStyle(
+                      color: TColor.gray20,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  cObj["number"] ?? "**** **** **** 2197",
+                  style: TextStyle(
+                      color: TColor.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  cObj["month_year"] ?? "08/27",
+                  style: TextStyle(
+                      color: TColor.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
+            )
+          ]),
+        );
+      }),
+      autoplayDisableOnInteraction: false,
+      axisDirection: AxisDirection.right,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
+    //var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: TColor.gray,
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
+          alignment: Alignment.topCenter,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 35, right: 10),
-              child: Row(
-                children: [
-                  const Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SettingsView()));
-                      },
-                      icon: Image.asset("assets/img/settings.png",
-                          width: 25, height: 25, color: TColor.gray30))
-                ],
-              ),
+            SizedBox(
+              width: double.infinity,
+              height: 600,
+              child: buildSwiper(),
             ),
-            Stack(
-              alignment: Alignment.bottomCenter,
+            Column(
               children: [
-                SizedBox(
-                  width: media.width * 0.5,
-                  height: media.width * 0.30,
-                  child: CustomPaint(
-                    painter: CustomArc180Painter(
-                      drwArcs: [
-                        ArcValueModel(color: TColor.secondaryG, value: 20),
-                        ArcValueModel(color: TColor.secondary, value: 45),
-                        ArcValueModel(color: TColor.primary10, value: 70),
-                      ],
-                      end: 50,
-                      width: 12,
-                      bgWidth: 8,
-                    ),
-                  ),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "\$82,90",
-                      style: TextStyle(
-                          color: TColor.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      "of \$2,0000 budget",
-                      style: TextStyle(
-                          color: TColor.gray30,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () {},
-                child: Container(
-                  height: 64,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: TColor.border.withOpacity(0.1),
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                SafeArea(
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Text(
-                        "Your budgets are on tack 👍",
-                        style: TextStyle(
-                            color: TColor.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Credit Cards",
+                            style:
+                                TextStyle(color: TColor.gray30, fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SettingsView()));
+                              },
+                              icon: Image.asset("assets/img/settings.png",
+                                  width: 25, height: 25, color: TColor.gray30))
+                        ],
                       ),
                     ],
                   ),
                 ),
-              ),
-            ),
-            ListView.builder(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: budgetArr.length,
-                itemBuilder: (context, index) {
-                  var bObj = budgetArr[index] as Map? ?? {};
 
-                  return BudgetsRow(
-                    bObj: bObj,
-                    onPressed: () {},
-                  );
-                }),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () {},
-                child: DottedBorder(
-                  dashPattern: const [5, 4],
-                  strokeWidth: 1,
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(16),
-                  color: TColor.border.withOpacity(0.1),
-                  child: Container(
-                    height: 64,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Add new category ",
-                          style: TextStyle(
-                              color: TColor.gray30,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        Image.asset(
-                          "assets/img/add.png",
-                          width: 12,
-                          height: 12,
-                          color: TColor.gray30,
-                        )
-                      ],
-                    ),
-                  ),
+                const SizedBox(
+                  height: 380,
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 110,
+
+                Text(
+                  "Subscriptions",
+                  style: TextStyle(
+                      color: TColor.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: subArr.map((sObj) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                      child: Image.asset(
+                        sObj["icon"],
+                        width: 40,
+                        height: 40,
+                      ),
+                    );
+                  }).toList(),
+                ),
+
+                const SizedBox(
+                  height: 40,
+                ),
+
+                Container(
+                  height: 300,
+                  decoration: BoxDecoration(
+                      color: TColor.gray70.withOpacity(0.5),
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25))),
+
+                  child: Column(children: [
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(16),
+                          onTap: () {},
+                          child: DottedBorder(
+                            dashPattern: const [5, 4],
+                            strokeWidth: 1,
+                            borderType: BorderType.RRect,
+                            radius: const Radius.circular(16),
+                            color: TColor.border.withOpacity(0.1),
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Add new card",
+                                    style: TextStyle(
+                                        color: TColor.gray30,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Image.asset(
+                                    "assets/img/add.png",
+                                    width: 12,
+                                    height: 12,
+                                    color: TColor.gray30,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],),
+                )
+              ],
             ),
           ],
         ),

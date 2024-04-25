@@ -85,14 +85,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 55, 34, 78),
+                    color: const Color.fromRGBO(255, 121, 102, 1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                       child: isSigningUp ? const  CircularProgressIndicator(color: Colors.white,):const Text(
                     "Registrarse",
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.black, fontWeight: FontWeight.bold),
                   )),
                 ),
               ),
@@ -117,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: const Text(
                         "Iniciar sesion",
                         style: TextStyle(
-                            color: Color.fromARGB(255, 55, 34, 78), fontWeight: FontWeight.bold),
+                            color: Color.fromRGBO(63, 62, 76, 1), fontWeight: FontWeight.bold),
                       ))
                 ],
               )

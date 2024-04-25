@@ -30,7 +30,7 @@ class CustomArc180Painter extends CustomPainter {
 
     
     Paint backgroundPaint = Paint();
-    backgroundPaint.color = TColor.gray60.withOpacity(0.5);
+    backgroundPaint.color = TColor.white;
     backgroundPaint.style = PaintingStyle.stroke;
     backgroundPaint.strokeWidth = bgWidth;
     backgroundPaint.strokeCap = StrokeCap.round;
