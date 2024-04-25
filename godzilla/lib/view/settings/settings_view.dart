@@ -109,11 +109,11 @@ class _SettingsViewState extends State<SettingsView> {
                 child: GestureDetector(
                 onTap: () {
                   FirebaseAuth.instance.signOut();
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                  builder: (context) => const Login(),
-                  ),
-                );
+                  Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Login()),
+                            (route) => false);
                   showToast(message: "Se ha cerrado la sesión");
                 },
                 child: Container(

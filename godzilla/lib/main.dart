@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:godzilla/common/color_extension.dart';
 import 'package:godzilla/view/main_tab/main_tab_view.dart';
 import 'firebase_options.dart';
+import 'package:godzilla/loginandsign/sign_up_page.dart';
 //import 'package:godzilla/body/start.dart';
 import 'package:godzilla/loginandsign/login.dart';
 import 'package:flutter/material.dart';

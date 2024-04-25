@@ -31,6 +31,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   @override
+  
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -122,6 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
       ),
+    
     );
   }
 
@@ -152,3 +156,4 @@ setState(() {
     }
   }
 }
+
