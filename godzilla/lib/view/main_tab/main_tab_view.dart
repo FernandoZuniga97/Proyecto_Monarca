@@ -91,7 +91,7 @@ class _MainTabViewState extends State<MainTabView> {
                                 onPressed: () {
                                   setState(() {
                                     selectTab = 2;
-                                    currentTabView = MyApp();
+                                    currentTabView = const MyApp();
                                   });
                                 },
                                 icon: Image.asset(

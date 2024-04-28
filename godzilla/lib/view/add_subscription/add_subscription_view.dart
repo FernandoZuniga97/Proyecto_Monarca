@@ -15,202 +15,183 @@ class AddSubScriptionView extends StatefulWidget {
 class _AddSubScriptionViewState extends State<AddSubScriptionView> {
   TextEditingController txtDescription = TextEditingController();
 
-  List subArr = [
-    {"name": "HBO GO", "icon": "assets/img/hbo_logo.png"},
-    {"name": "Spotify", "icon": "assets/img/spotify_logo.png"},
-    {"name": "YouTube Premium", "icon": "assets/img/youtube_logo.png"},
-    {
-      "name": "Microsoft OneDrive",
-      "icon": "assets/img/onedrive_logo.png",
-    },
-    {"name": "NetFlix", "icon": "assets/img/netflix_logo.png"}
-  ];
+  String eventName = '';
+  String eventType = '';
+  String eventLocation = '';
+  double budget = 0.0;
+  String eventAddress = '';
+  List<String> guests = [];
+  DateTime selectedDate = DateTime.now();
+  List<String> items = [];
+  List<double> values = [];
+  String eventDescription = '';
 
-  double amountVal = 0.09;
+  double calculateTotal() {
+    double total = 0.0;
+    for (int i = 0; i < items.length; i++) {
+      total += values[i];
+    }
+    return total;
+  }
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
-    return Scaffold(
-      backgroundColor: TColor.gray,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: TColor.gray70.withOpacity(0.5),
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(25),
-                      bottomRight: Radius.circular(25))),
-              child: SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+    return MaterialApp(
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextField(
+                  decoration: InputDecoration(labelText: 'Nombre del Evento'),
+                  onChanged: (value) {
+                    setState(() {
+                      eventName = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Tipo de Evento'),
+                  onChanged: (value) {
+                    setState(() {
+                      eventType = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Lugar del Evento'),
+                  onChanged: (value) {
+                    setState(() {
+                      eventLocation = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Presupuesto'),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  onChanged: (value) {
+                    setState(() {
+                      budget = double.tryParse(value) ?? 0.0;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Ubicación'),
+                  onChanged: (value) {
+                    setState(() {
+                      eventAddress = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Lista de Invitados'),
+                  onChanged: (value) {
+                    setState(() {
+                      guests = value.split(',').map((e) => e.trim()).toList();
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                Row(
                   children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Image.asset("assets/img/back.png",
-                                    width: 25,
-                                    height: 25,
-                                    color: TColor.gray30))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "New",
-                              style:
-                                  TextStyle(color: TColor.gray30, fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ],
+                    Expanded(
+                      child: Text(selectedDate.toString()),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Text(
-                        "Add new\n subscription",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: TColor.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.w700),
-                      ),
+                    TextButton(
+                      onPressed: () async {
+                        final DateTime? picked = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2101),
+                        );
+                        if (picked != null && picked != selectedDate)
+                          setState(() {
+                            selectedDate = picked;
+                          });
+                      },
+                      child: Text('Seleccionar Fecha'),
                     ),
-                    SizedBox(
-                      width: media.width,
-                      height: media.width * 0.6,
-                      child: CarouselSlider.builder(
-                        options: CarouselOptions(
-                          autoPlay: false,
-                          aspectRatio: 1,
-                          enlargeCenterPage: true,
-                          enableInfiniteScroll: true,
-                          viewportFraction: 0.65,
-                          enlargeFactor: 0.4,
-                          enlargeStrategy: CenterPageEnlargeStrategy.zoom,
-                        ),
-                        itemCount: subArr.length,
-                        itemBuilder: (BuildContext context, int itemIndex,
-                            int pageViewIndex) {
-                          var sObj = subArr[itemIndex] as Map? ?? {};
-
-                          return Container(
-                            margin: const EdgeInsets.all(10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  sObj["icon"],
-                                  width: media.width * 0.4,
-                                  height: media.width * 0.4,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                                const Spacer(),
-                                Text(
-                                  sObj["name"],
-                                  style: TextStyle(
-                                      color: TColor.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    )
                   ],
                 ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: RoundTextField(title: "Description", titleAlign: TextAlign.center, controller: txtDescription, )
-
-            ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ImageButton(
-                    image: "assets/img/minus.png",
-                    onPressed: () {
-
-                      amountVal -= 0.1;
-
-                      if(amountVal < 0) {
-                        amountVal = 0;
-                      }
-
-                      setState(() {
-                        
-                      });
-                    },
-                  ),
-
-                  Column(
-                    children: [
-                        Text(
-                        "Monthly price",
-                        style: TextStyle(
-                            color: TColor.gray40,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Descripción del Evento'),
+                  onChanged: (value) {
+                    setState(() {
+                      eventDescription = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Cosas para el evento:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(labelText: 'Nombre'),
+                            onChanged: (value) {
+                              items[index] = value;
+                            },
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(labelText: 'Valor'),
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            onChanged: (value) {
+                              values[index] = double.tryParse(value) ?? 0.0;
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '\$${calculateTotal().toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color:
+                            calculateTotal() <= budget ? Colors.green : Colors.red,
                       ),
-
-                     const SizedBox(height: 4,),
-
-                       Text(
-                        "\$${amountVal.toStringAsFixed(2)}",
-                        style: TextStyle(
-                            color: TColor.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-
-                      Container(
-                        width: 150,
-                        height: 1,
-                        color: TColor.gray70,
-                      )
-                    ],
-                  ),
-
-                  ImageButton(
-                    image: "assets/img/plus.png",
-                    onPressed: () {
-                      amountVal += 0.1;
-
-                      setState(() {});
-                    },
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    // Aquí puedes guardar los datos del evento
+                  },
+                  child: Text('Guardar'),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child:
-                  PrimaryButton(title: "Add this platform", onPressed: () {}),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+          ),
         ),
       ),
     );
