@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:godzilla/view/add_event/add_event_view.dart';
+import 'package:godzilla/view/add_subscription/add_event_view.dart';
+import 'package:godzilla/view/add_subscription/add_subscription_view.dart';
+import 'package:godzilla/view/calender/screens/home_page.dart';
 import '../../common/color_extension.dart';
-import '../calender/calender_view.dart';
+import '../calender/screens/calender_view.dart';
 import '../card/cards_view.dart';
 import '../home/home_view.dart';
 import '../spending_budgets/events.dart';
@@ -91,7 +93,7 @@ class _MainTabViewState extends State<MainTabView> {
                                 onPressed: () {
                                   setState(() {
                                     selectTab = 2;
-                                    currentTabView = const MyApp();
+                                    currentTabView = const MyHomePage();
                                   });
                                 },
                                 icon: Image.asset(
@@ -107,7 +109,7 @@ class _MainTabViewState extends State<MainTabView> {
                                 onPressed: () {
                                   setState(() {
                                     selectTab = 3;
-                                    currentTabView = SpendingBudgetsView() as Widget;
+                                    currentTabView = SpendingBudgetsView();
                                   });
                                 },
                                 icon: Image.asset(
@@ -125,7 +127,7 @@ class _MainTabViewState extends State<MainTabView> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const EventosView()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const EventosView()) );
                         },
                         child: Container(
                           margin: const EdgeInsets.all(20),
@@ -152,7 +154,4 @@ class _MainTabViewState extends State<MainTabView> {
       ),
     );
   }
-}
-
-class SpendingBudgetsView {
 }

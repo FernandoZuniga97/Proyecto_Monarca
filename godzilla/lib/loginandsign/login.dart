@@ -39,7 +39,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   bool _isSigning = false;
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController(text : 'user');
   final TextEditingController _passwordController = TextEditingController();
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final LocalAuthentication _localAuthentication = LocalAuthentication();

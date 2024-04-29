@@ -1,18 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'event_form.dart';
-import 'invitados_form.dart';
+import 'package:godzilla/view/add_subscription/event_form.dart';
+import 'package:godzilla/view/add_subscription/invitados_form.dart';
+import 'package:godzilla/view/calender/model/event.dart';
 
-class EventosView extends StatefulWidget {
-  
-  const EventosView({super.key});
-  
+class EditEvent extends StatefulWidget {
+  final DateTime firstDate;
+  final DateTime lastDate;
+  final Event event;
+  const EditEvent(
+      {Key? key,
+      required this.firstDate,
+      required this.lastDate,
+      required this.event})
+      : super(key: key);
 
   @override
-  State<EventosView> createState() => _EventosViewState();
+  State<EditEvent> createState() => _EditEventState();
 }
 
-class _EventosViewState extends State<EventosView> {
+class _EditEventState extends State<EditEvent> {
+  late DateTime _selectedDate;
   final _formKey = GlobalKey<FormState>();
   String? _nombreEvento;
   DateTime? _fechaEvento;
@@ -25,25 +33,37 @@ class _EventosViewState extends State<EventosView> {
   List<String> _nombresInvitados = [];
 
   @override
+  void initState() {
+    super.initState();
+    _selectedDate = widget.event.FechaEvento;
+    _nombreEvento = widget.event.NombreEvento;
+    _lugarEvento = widget.event.Lugar;
+    _presupuesto = widget.event.Presupuesto;
+    _tipoEvento = widget.event.TipoEvento;
+    _ubicacion = widget.event.Ubicacion;
+    //_numInvitados = widget.event.numInvitados;
+    //_nombresInvitados = widget.event.nombresInvitados;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 32),
-              const Text(
-                'Eventos',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 48),
-              EventForm(
+      appBar: AppBar(title: const Text("Edit Event")),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          InputDatePickerFormField(
+            firstDate: widget.firstDate,
+            lastDate: widget.lastDate,
+            initialDate: _selectedDate,
+            onDateSubmitted: (date) {
+              print(date);
+              setState(() {
+                _selectedDate = date;
+              });
+            },
+          ),
+          EventForm(
                 formKey: _formKey,
                 onNombreEventoSaved: (value) {
                   _nombreEvento = value;
@@ -65,8 +85,8 @@ class _EventosViewState extends State<EventosView> {
                 },
                 fechaEvento: _fechaEvento,
               ),
-              const SizedBox(height: 24),
-              Row(
+          const SizedBox(height: 16.0),
+          Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
@@ -108,10 +128,12 @@ class _EventosViewState extends State<EventosView> {
                   });
                 },
               ),
-              const SizedBox(height: 48),
+            const SizedBox(height: 48),
               SizedBox(
+                height: 100,
                 width: double.infinity,
                 child: ElevatedButton(
+                
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
@@ -119,6 +141,7 @@ class _EventosViewState extends State<EventosView> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
+                    
                     backgroundColor: Colors.green,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
@@ -128,9 +151,7 @@ class _EventosViewState extends State<EventosView> {
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }

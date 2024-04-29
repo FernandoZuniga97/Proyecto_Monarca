@@ -12,6 +12,8 @@ class EventForm extends StatefulWidget {
     required this.onTipoEventoSaved,
     required this.onUbicacionSaved,
     required this.fechaEvento,
+    required this.onPresupuestoSaved,
+    required this.onLugarSaved,
   });
 
   final GlobalKey<FormState> formKey;
@@ -19,6 +21,8 @@ class EventForm extends StatefulWidget {
   final ValueSetter<DateTime?> onFechaEventoSaved;
   final ValueSetter<String?> onTipoEventoSaved;
   final ValueSetter<String?> onUbicacionSaved;
+  final ValueSetter<String?> onPresupuestoSaved;
+  final ValueSetter<String?> onLugarSaved;
   final DateTime? fechaEvento;
 
   @override
@@ -114,6 +118,29 @@ class _EventFormState extends State<EventForm> {
               return null;
             },
             onSaved: widget.onUbicacionSaved,
+          ),
+          const SizedBox(height: 24),
+          CustomFormField(
+            labelText: 'Presupuesto',
+            keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor ingrese un presupuesto';
+              }
+              return null;
+            },
+            onSaved: widget.onPresupuestoSaved,
+          ),
+          const SizedBox(height: 24),
+          CustomFormField(
+            labelText: 'Lugar del evento',
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor ingrese el lugar del evento';
+              }
+              return null;
+            },
+            onSaved: widget.onLugarSaved,
           ),
         ],
       ),

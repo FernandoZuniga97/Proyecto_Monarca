@@ -188,6 +188,7 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
                     // Aquí puedes guardar los datos del evento
                   },
                   child: Text('Guardar'),
+                  //s
                 ),
               ],
             ),

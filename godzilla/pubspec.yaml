@@ -42,6 +42,7 @@ dependencies:
   google_sign_in: 6.2.1
   firebase_storage: 11.7.2
   local_auth: 2.2.0
+
   dotted_border: 2.0.0+3
   intl: 0.18.0
   vector_math: 2.1.4
@@ -51,6 +52,7 @@ dependencies:
   card_swiper:
     path: dev_lib/card_swiper
   fluttertoast: ^8.2.5
+  
 
 dev_dependencies:
   flutter_test:
