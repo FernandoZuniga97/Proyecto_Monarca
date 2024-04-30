@@ -1,12 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:godzilla/common/color_extension.dart';
 import '../../widget/custom_arc_painter.dart';
 import '../../widget/segment_button.dart';
 import '../../widget/status_button.dart';
-import '../../widget/subscription_home_row.dart';
-import '../../widget/upcoming_bill_row.dart';
 import '../settings/settings_view.dart';
 import '../subscription_info/subscription_info_view.dart';
+import 'package:godzilla/view/home/event_row.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,35 +17,38 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   bool isSubscription = true;
-  List subArr = [
-    {"name": "Spotify", "icon": "assets/img/spotify_logo.png", "price": "5.99"},
-    {
-      "name": "YouTube Premium",
-      "icon": "assets/img/youtube_logo.png",
-      "price": "18.99"
-    },
-    {
-      "name": "Microsoft OneDrive",
-      "icon": "assets/img/onedrive_logo.png",
-      "price": "29.99"
-    },
-  ];
-
-  List bilArr = [
-    {"name": "Spotify", "date": DateTime(2023, 07, 25), "price": "5.99"},
-    {
-      "name": "YouTube Premium",
-      "date": DateTime(2023, 07, 25),
-      "price": "18.99"
-    },
-    {
-      "name": "Microsoft OneDrive",
-      "date": DateTime(2023, 07, 25),
-      "price": "29.99"
-    },
-  ];
+  List<Map<String, dynamic>> activeEvents = [];
+  List<Map<String, dynamic>> upcomingEvents = [];
 
   @override
+  void initState() {
+    super.initState();
+    _fetchEvents();
+  }
+
+  Future<void> _fetchEvents() async {
+    QuerySnapshot eventsSnapshot =
+        await FirebaseFirestore.instance.collection('Eventos').get();
+    List<Map<String, dynamic>> events =
+        eventsSnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+
+    DateTime today = DateTime.now();
+    DateTime tomorrow = DateTime(today.year, today.month, today.day + 1);
+
+    activeEvents = events
+        .where((event) =>
+            event['fechaEvento'].toDate().isAfter(today.subtract(const Duration(days: 1))) &&
+            event['fechaEvento'].toDate().isBefore(tomorrow))
+        .toList();
+
+    upcomingEvents = events
+        .where((event) => event['fechaEvento'].toDate().isAfter(tomorrow))
+        .toList();
+
+    setState(() {});
+  }
+
+   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return MaterialApp(
@@ -189,12 +192,13 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               ),
-              Container(
+               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 height: 50,
                 decoration: const BoxDecoration(
-                    color: Color.fromRGBO(63, 62, 76, 1),borderRadius: BorderRadius.all(Radius.circular(14))),
+                    color: Color.fromRGBO(63, 62, 76, 1),
+                    borderRadius: BorderRadius.all(Radius.circular(14))),
                 child: Row(
                   children: [
                     Expanded(
@@ -222,39 +226,33 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               ),
+
               if (isSubscription)
                 ListView.builder(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: subArr.length,
-                    itemBuilder: (context, index) {
-                      var sObj = subArr[index] as Map? ?? {};
-      
-                      return SubScriptionHomeRow(
-                        sObj: sObj,
-                        onPressed: () {
-      
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionInfoView( sObj: sObj ) ));
-                        },
-                      );
-                    }),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: activeEvents.length,
+                  itemBuilder: (context, index) {
+                    var eventObj = activeEvents[index];
+
+                    return EventRow(eventData: eventObj);
+                  },
+                ),
+
               if (!isSubscription)
                 ListView.builder(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: subArr.length,
-                    itemBuilder: (context, index) {
-                      var sObj = subArr[index] as Map? ?? {};
-      
-                      return UpcomingBillRow(
-                        sObj: sObj,
-                        onPressed: () {},
-                      );
-                    }),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: upcomingEvents.length,
+                  itemBuilder: (context, index) {
+                    var eventObj = upcomingEvents[index];
+
+                    return EventRow(eventData: eventObj);
+                  },
+                ),
+
               const SizedBox(
                 height: 110,
               ),
