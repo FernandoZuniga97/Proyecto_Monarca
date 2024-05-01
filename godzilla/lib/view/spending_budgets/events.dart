@@ -52,7 +52,14 @@ class _EventsViewState extends State<EventsView> {
                         Text('Ubicación: ${data['ubicacion'] ?? ''}'),
                         Text('Lugar del evento: ${data['lugarEvento'] ?? ''}'),
                         Text('Presupuesto: ${data['presupuesto'] != null ? data['presupuesto'].toString() : ''}'),
-                        Text('Lista de invitados: ${data['listaInvitados'] ?? ''}'),
+                        Text('Lista de invitados: ${data['listaInvitados'] != null && data['listaInvitados'] ? 'Sí' : 'No'}'),
+                        if (data['listaInvitados'] != null &&
+                            data['listaInvitados'])
+                          Text('Número de invitados: ${data['numInvitados'] ?? 0}'),
+                        if (data['listaInvitados'] != null &&
+                            data['listaInvitados'] &&
+                            data['nombresInvitados'] != null)
+                          Text('Nombres de invitados: ${data['nombresInvitados'].join(', ')}'),
                       ],
                     ),
                     trailing: PopupMenuButton(
