@@ -51,6 +51,9 @@ class _HomeViewState extends State<HomeView> {
    @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
+  int activeEventsCount = activeEvents.length;
+  int upcomingEventsCount = upcomingEvents.length;
+  int totalEventsCount = activeEventsCount + upcomingEventsCount;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
@@ -157,7 +160,7 @@ class _HomeViewState extends State<HomeView> {
                               Expanded(
                                 child: StatusButton(
                                   title: "Eventos activos",
-                                  value: "03",
+                                  value: activeEventsCount.toString(),
                                   statusColor: TColor.secondary,
                                   onPressed: () {},
                                 ),
@@ -168,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
                               Expanded(
                                 child: StatusButton(
                                   title: "Futuros eventos",
-                                  value: "20",
+                                  value: upcomingEventsCount.toString(),
                                   statusColor: TColor.primary10,
                                   onPressed: () {},
                                 ),
@@ -179,7 +182,7 @@ class _HomeViewState extends State<HomeView> {
                               Expanded(
                                 child: StatusButton(
                                   title: "Total de eventos",
-                                  value: "23",
+                                  value: totalEventsCount.toString(),
                                   statusColor: TColor.secondaryG,
                                   onPressed: () {},
                                 ),
