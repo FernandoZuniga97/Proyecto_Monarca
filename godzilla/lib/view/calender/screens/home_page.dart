@@ -50,8 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final snap = await FirebaseFirestore.instance
         .collection('Eventos')
-        .where('FechaEvento', isGreaterThanOrEqualTo: firstDay)
-        .where('FechaEvento', isLessThanOrEqualTo: lastDay)
+        .where('fechaEvento', isGreaterThanOrEqualTo: firstDay)
+        .where('fechaEvento', isLessThanOrEqualTo: lastDay)
         .withConverter(
             fromFirestore: Event.fromFirestore,
             toFirestore: (event, options) => event.toFirestore())
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     for (var doc in snap.docs) {
       final event = doc.data();
       final day =
-          DateTime.utc(event.FechaEvento.year, event.FechaEvento.month, event.FechaEvento.day);
+          DateTime.utc(event.fechaEvento.year, event.fechaEvento.month, event.fechaEvento.day);
       if (_events[day] == null) {
         _events[day] = [];
       }

@@ -6,6 +6,7 @@ import 'package:godzilla/loginandsign/sign_up_page.dart';
 //import 'package:godzilla/body/start.dart';
 import 'package:godzilla/loginandsign/login.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 
 void main() async {
@@ -13,8 +14,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) => runApp(MyApp()));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -25,20 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  calendar_agenda:
-    dependency: "direct main"
-    description:
-      path: "dev_lib/calendar_agenda"
-      relative: true
-    source: path
-    version: "0.0.2+2"
-  card_swiper:
-    dependency: "direct main"
-    description:
-      path: "dev_lib/card_swiper"
-      relative: true
-    source: path
-    version: "3.0.1"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -103,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  date_picker_timeline:
+    dependency: "direct main"
+    description:
+      name: date_picker_timeline
+      sha256: dc754de3a99ad654c5633072cb9edac27e0b2875c81c7286e8c6cf419082a110
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.5"
   dotted_border:
     dependency: "direct main"
     description:
@@ -430,14 +424,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-  scrollable_positioned_list:
-    dependency: transitive
-    description:
-      name: scrollable_positioned_list
-      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.8"
   simple_gesture_detector:
     dependency: transitive
     description:

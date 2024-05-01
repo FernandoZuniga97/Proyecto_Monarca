@@ -35,12 +35,12 @@ class _EditEventState extends State<EditEvent> {
   @override
   void initState() {
     super.initState();
-    _selectedDate = widget.event.FechaEvento;
-    _nombreEvento = widget.event.NombreEvento;
-    _lugarEvento = widget.event.Lugar;
-    _presupuesto = widget.event.Presupuesto;
-    _tipoEvento = widget.event.TipoEvento;
-    _ubicacion = widget.event.Ubicacion;
+    _selectedDate = widget.event.fechaEvento;
+    _nombreEvento = widget.event.nombreEvento;
+    _lugarEvento = widget.event.lugar;
+    _presupuesto = widget.event.presupuesto;
+    _tipoEvento = widget.event.tipoEvento;
+    _ubicacion = widget.event.ubicacion;
     //_numInvitados = widget.event.numInvitados;
     //_nombresInvitados = widget.event.nombresInvitados;
   }

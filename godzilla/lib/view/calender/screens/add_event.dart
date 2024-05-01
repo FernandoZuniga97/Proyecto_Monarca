@@ -20,8 +20,6 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent> {
   late DateTime _selectedDate;
-  final _titleController = TextEditingController();
-  final _descController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String? _nombreEvento;
   DateTime? _fechaEvento;
@@ -95,7 +93,7 @@ class _AddEventState extends State<AddEvent> {
                       children: [
                         const Text(
                           'Lista de invitados',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white),
                         ),
                         const SizedBox(width: 16),
                         Switch(

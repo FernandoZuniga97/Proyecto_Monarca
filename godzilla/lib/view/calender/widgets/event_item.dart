@@ -17,7 +17,10 @@ class EventItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        event.NombreEvento,
+        event.nombreEvento,
+      ),
+      subtitle: Text(
+        event.fechaEvento.toString(),
       ),
       onTap: onTap,
       trailing: IconButton(
