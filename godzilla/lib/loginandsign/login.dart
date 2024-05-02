@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:godzilla/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:godzilla/common/toast.dart';
 import 'package:godzilla/loginandsign/sign_up_page.dart';
@@ -63,7 +64,9 @@ class _LoginFormState extends State<LoginForm> {
     if (isAuthenticated) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const MainTabView(),
+          builder: (context) => const MainTabView(
+              
+          ),
         ),
       );
     } else {
@@ -122,12 +125,14 @@ class _LoginFormState extends State<LoginForm> {
                   const Text("Organizator", style: TextStyle(fontSize: 30, fontWeight:  FontWeight.bold), ),
                   const SizedBox(height: 100),
                   FormContainerWidget(
+                    keyboardType: TextInputType.emailAddress,
                 controller: _usernameController,
                 hintText: "user: user@ejemplo.com",
                 isPasswordField: false,
               ),
                   const SizedBox(height: 16.0),
                   FormContainerWidget(  
+                    keyboardType: TextInputType.text,
                 controller: _passwordController,
                 hintText: "Contraseña: 123456",
                 isPasswordField: true,  
@@ -149,8 +154,8 @@ class _LoginFormState extends State<LoginForm> {
                     //),
                   //),
                   const SizedBox (height: 30.0),
-                  ElevatedButton(
-                    onPressed: () {
+                  GestureDetector(
+                    onTap: () {
                       _signIn();
                     },
                     child: Container(
@@ -158,7 +163,7 @@ class _LoginFormState extends State<LoginForm> {
                   height: 45,
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(255, 121, 102, 1),
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child: _isSigning ? const CircularProgressIndicator(

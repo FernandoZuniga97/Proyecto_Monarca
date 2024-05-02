@@ -74,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset("assets/img/home_bg.png"),
+                  Image.asset("assets/img/home_bg.png"),
                     Stack(
                       alignment: Alignment.topCenter,
                       children: [
@@ -83,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
                           width: media.width * 0.72,
                           height: media.width * 0.72,
                           child: CustomPaint(
-                            painter: CustomArcPainter(end: 230, ),
+                            painter: CustomArcPainter(end: 270, ),
                           ),
                         ),
       
@@ -195,7 +195,7 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               ),
-               Container(
+              Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 height: 50,
@@ -235,10 +235,10 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
+                  
                   itemCount: activeEvents.length,
                   itemBuilder: (context, index) {
                     var eventObj = activeEvents[index];
-
                     return EventRow(eventData: eventObj);
                   },
                 ),

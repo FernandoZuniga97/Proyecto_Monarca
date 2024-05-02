@@ -54,6 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 30,
               ),
               FormContainerWidget(
+                keyboardType: TextInputType.text,
                 controller: _usernameController,
                 hintText: "Nombre de usuario",
                 isPasswordField: false,
@@ -62,6 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 10,
               ),
               FormContainerWidget(
+                keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
                 hintText: "Correo Electronico",
                 isPasswordField: false,
@@ -70,6 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 10,
               ),
               FormContainerWidget(
+                keyboardType: TextInputType.text,
                 controller: _passwordController,
                 hintText: "Contraseña",
                 isPasswordField: true,

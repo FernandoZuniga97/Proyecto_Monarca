@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-
 import '../common/color_extension.dart';
-
+import 'dart:math';
 class BudgetsRow extends StatelessWidget {
   final Map bObj;
   final VoidCallback onPressed;
+  final Color color;
 
-  const BudgetsRow({super.key, required this.bObj, required this.onPressed});
-
+  BudgetsRow({super.key, required this.bObj, required this.onPressed, required int colorSeed }): color = _generateRandomColor(colorSeed);
+  static Color _generateRandomColor(int seed) {
+    final random = Random(seed);
+    return Color.fromRGBO(
+      random.nextInt(256), // Rojo
+      random.nextInt(256), // Verde
+      random.nextInt(256), // Azul
+      1, // Opacidad
+    );
+  }
   @override
   Widget build(BuildContext context) {
-
-    var proVal = (double.tryParse(bObj["left_amount"]) ?? 0) / (double.tryParse(bObj["total_budget"]) ?? 0);
-
+  var proVal = (bObj["Monto"] as int?)?.toDouble() ?? 0.0;
     return MaterialApp(
+      color: color,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),
@@ -24,13 +31,13 @@ class BudgetsRow extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           onTap: onPressed,
           child: Container(
-            
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border.all(
-                color: TColor.border.withOpacity(0.05),
+                color:const Color.fromRGBO(63, 62, 76, 1),
               ),
-              color: Color.fromARGB(255, 223, 223, 236),
+              color:const Color.fromRGBO(63, 62, 76, 1),
+            //color:Color.fromARGB(255, 248, 229, 216),
               borderRadius: BorderRadius.circular(16),
             ),
             alignment: Alignment.center,
@@ -40,15 +47,7 @@ class BudgetsRow extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        bObj["icon"],
-                        width: 30,
-                        height: 30,
-                        color: Color.fromRGBO(23, 23, 24, 1),
-                      ),
-                    ),
+                  
                     const SizedBox(
                       width: 8,
                     ),
@@ -58,16 +57,20 @@ class BudgetsRow extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            bObj["name"],
+                            bObj["Nombre"],
                             style: TextStyle(
-                                color: TColor.gray80,
+                              decoration: TextDecoration.underline,
+                                decorationThickness: 0,
+                                color: TColor.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            "\$${bObj["left_amount"]} left to spend",
+                            "${bObj["Descripcion"]}",
                             style: TextStyle(
-                                  color: TColor.gray60,
+                              decoration: TextDecoration.underline,
+                                decorationThickness: 0,
+                                  color: TColor.white,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -82,29 +85,28 @@ class BudgetsRow extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "\$${bObj["spend_amount"]}",
+                            "${bObj["Monto"]} Lps",
                             style: TextStyle(
-                            color: TColor.gray40,
+                            color: TColor.white,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w600),
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                                decorationThickness: 0,
+                                ),
+                                
                           ),
-                          Text(
-                            "of \$${bObj["total_budget"]}",
-                            style: TextStyle(
-                                color: TColor.gray40,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500),
-                          ),
+                          
                         ]),
                   ],
                 ),
-      
-                const SizedBox(height: 8,),
+              
+                const SizedBox(height: 8,), 
                 LinearProgressIndicator(
                   backgroundColor: TColor.gray60,
-                  valueColor: AlwaysStoppedAnimation(bObj["color"]),
+                  valueColor: AlwaysStoppedAnimation(color),
                   minHeight: 3,
                   value: proVal ,
+                  
                 )
               ],
             ),

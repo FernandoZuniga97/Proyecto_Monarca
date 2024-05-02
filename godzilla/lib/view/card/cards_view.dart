@@ -1,207 +1,167 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:godzilla/common/color_extension.dart';
 import 'package:godzilla/widget/budgets_row.dart';
 import 'package:godzilla/widget/custom_arc_180_painter.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../settings/settings_view.dart';
+import 'package:godzilla/view/card/new_users_page.dart';
 
 class SpendingBudgetsView extends StatefulWidget {
-  const SpendingBudgetsView({super.key});
+  const SpendingBudgetsView({Key? key}) : super(key: key);
 
   @override
   State<SpendingBudgetsView> createState() => _SpendingBudgetsViewState();
 }
 
 class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
-  List budgetArr = [
-    {
-      "name": "Auto & Transport",
-      "icon": "assets/img/auto_&_transport.png",
-      "spend_amount": "25.99",
-      "total_budget": "400",
-      "left_amount": "250.01",
-      "color": TColor.secondaryG
-    },
-    {
-      "name": "Entertainment",
-      "icon": "assets/img/entertainment.png",
-      "spend_amount": "50.99",
-      "total_budget": "600",
-      "left_amount": "300.01",
-      "color": TColor.secondary50
-    },
-    {
-      "name": "Security",
-      "icon": "assets/img/security.png",
-      "spend_amount": "5.99",
-      "total_budget": "600",
-      "left_amount": "250.01",
-      "color": TColor.primary10
-    },
-  ];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
-    return MaterialApp(
+    final users = firestore.collection('Adpersonal').snapshots();
+    return StreamBuilder<QuerySnapshot>(
+      stream: users,
+      builder: ( context, snapshot) {
+        var media = MediaQuery.of(context);
+        return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),
-      theme: ThemeData.light(),
-      home: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 35, right: 10),
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SettingsView()));
-                        },
-                        icon: Image.asset("assets/img/settings.png",
-                            width: 25, height: 25, color: TColor.gray30))
-                  ],
-                ),
-              ),
-              Stack(
-                alignment: Alignment.bottomCenter,
+          home: Scaffold(
+            appBar: AppBar(title:  Text('Administración Personal', style: TextStyle(fontWeight: FontWeight.bold, color: TColor.gray20),), backgroundColor:const Color.fromRGBO(63, 62, 76, 1),),
+            body: SingleChildScrollView(
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: media.width * 0.5,
-                    height: media.width * 0.30,
-                    child: CustomPaint(
-                      painter: CustomArc180Painter(
-                        drwArcs: [
-                          ArcValueModel(color: TColor.secondaryG, value: 20),
-                          ArcValueModel(color: TColor.secondary, value: 45),
-                          ArcValueModel(color: TColor.primary10, value: 70),
-                        ],
-                        end: 50,
-                        width: 12,
-                        bgWidth: 8,
-                      ),
-                    ),
-                  ),
-                  const Column(
-                    children: [
-                      Text(
-                        "4,500 LPS",
-                        style: TextStyle(
-                            
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        "de 10,0000 LPS",
-                        style: TextStyle(
-                          
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
-                  onTap: () {},
-                  child: Container(
-                    height: 64,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: const Color.fromRGBO(63, 62, 76, 1)
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    alignment: Alignment.center,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 35, right: 10),
+                    child: Row(
                       children: [
-                        Text(
-                          "Estadistica de tu inversión",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                        ),
+                        const Spacer(),
+                        IconButton(
+                            onPressed: () {
+                        Navigator.push(
+                            context,
+                              MaterialPageRoute(
+                                      builder: (context) => const SettingsView()));
+                            },
+                            icon: Image.asset("assets/img/settings.png",
+                                width: 25, height: 25, color: TColor.gray30
+                                ))
                       ],
                     ),
                   ),
-                ),
-              ),
-              ListView.builder(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: budgetArr.length,
-                  itemBuilder: (context, index) {
-                    var bObj = budgetArr[index] as Map? ?? {};
-      
-                    return BudgetsRow(
-                      bObj: bObj,
-                      onPressed: () {},
-                    );
-                  }),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
-                  onTap: () {},
-                  child: DottedBorder(
-                    dashPattern: const [5, 4],
-                    strokeWidth: 1,
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(16),
-                    color: const Color.fromRGBO(63, 62, 76, 1),
-                    child: Container(
-                      height: 64,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      SizedBox(
+                        width: media.size.width * 0.5,
+                        height: media.size.width * 0.30,
+                        child: CustomPaint(
+                        painter: CustomArc180Painter(
+                          drwArcs: [
+                              ArcValueModel(color: Colors.blueAccent, value: 20),
+                              ArcValueModel(color: Colors.purpleAccent, value: 45),
+                              ArcValueModel(color: Colors.redAccent, value: 75),
+                              ArcValueModel(color: Colors.green, value: 40),
+                            ],
+                            end: 50,
+                            width: 12,
+                            bgWidth: 8,
+                          ),
+                        ),
                       ),
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      const Column(
                         children: [
                           Text(
-                            "Add new category ",
+                            "Salario",
                             style: TextStyle(
-                                color: TColor.gray70,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700),
                           ),
-                          Image.asset(
-                            "assets/img/add.png",
-                            width: 12,
-                            height: 12,
-                            color: Color.fromRGBO(63, 62, 76, 1)
-                          )
+                          Text(
+                            "Mensual",
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  NewUserPage()),
+                              (route) => false);},
+                      child: Container(
+                        height: 64,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                          color: TColor.secondary
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          color: TColor.secondary
+                        ),
+                        alignment: Alignment.center,
+                        child: const  Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Agregar gasto",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: users,
+                    builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+              final listaAdpersonal = snapshot.data!.docs;
+              return ListView.builder(
+                padding: 
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: listaAdpersonal.length,
+                itemBuilder: (context, index) {
+                  var user = listaAdpersonal[index].data() as Map? ?? {};  
+                  return BudgetsRow(
+                          bObj: user,
+                          onPressed: () {},
+                        colorSeed: index,
+                  );
+                },
+              );
+            }
+            else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 110,
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

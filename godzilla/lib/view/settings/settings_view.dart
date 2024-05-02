@@ -46,7 +46,7 @@ class _SettingsViewState extends State<SettingsView> {
                     children: [
                       Text(
                         "Configuración",
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -86,7 +86,7 @@ class _SettingsViewState extends State<SettingsView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Ejemplo.com",
+                    "UnahVS-juanDeidad.com",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500),
