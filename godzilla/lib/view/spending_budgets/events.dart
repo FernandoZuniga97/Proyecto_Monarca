@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({super.key});
@@ -12,6 +13,7 @@ class _EventsViewState extends State<EventsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 200, 75, 13),
       appBar: AppBar(
         title: const Text('Eventos'),
       ),
@@ -47,18 +49,15 @@ class _EventsViewState extends State<EventsView> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Fecha: ${data['fechaEvento'] != null ? data['fechaEvento'].toDate().toString() : ''}'),
+                        Text('Fecha: ${data['fechaEvento'] != null ? DateFormat('dd/MM/yyyy').format(data['fechaEvento'].toDate()) : ''}'),
                         Text('Tipo de evento: ${data['tipoEvento'] ?? ''}'),
                         Text('Ubicación: ${data['ubicacion'] ?? ''}'),
                         Text('Lugar del evento: ${data['lugarEvento'] ?? ''}'),
                         Text('Presupuesto: ${data['presupuesto'] != null ? data['presupuesto'].toString() : ''}'),
                         Text('Lista de invitados: ${data['listaInvitados'] != null && data['listaInvitados'] ? 'Sí' : 'No'}'),
-                        if (data['listaInvitados'] != null &&
-                            data['listaInvitados'])
+                        if (data['listaInvitados'] != null && data['listaInvitados'])
                           Text('Número de invitados: ${data['numInvitados'] ?? 0}'),
-                        if (data['listaInvitados'] != null &&
-                            data['listaInvitados'] &&
-                            data['nombresInvitados'] != null)
+                        if (data['listaInvitados'] != null && data['listaInvitados'] && data['nombresInvitados'] != null)
                           Text('Nombres de invitados: ${data['nombresInvitados'].join(', ')}'),
                       ],
                     ),
