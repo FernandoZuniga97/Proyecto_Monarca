@@ -239,13 +239,7 @@ class _HomeViewState extends State<HomeView> {
                   itemCount: activeEvents.length,
                   itemBuilder: (context, index) {
                     var eventObj = activeEvents[index];
-                    return Column(
-                      children: [
-                        EventRow(eventData: eventObj),
-                        SizedBox(
-                          height: 10,)
-                      ],
-                    );
+                    return EventRow(eventData: eventObj);
                   },
                 ),
 
@@ -258,13 +252,7 @@ class _HomeViewState extends State<HomeView> {
                   itemBuilder: (context, index) {
                     var eventObj = upcomingEvents[index];
 
-                    return Column(
-                      children: [
-                        EventRow(eventData: eventObj),
-                        SizedBox(
-                          height: 10,)
-                      ],
-                    );
+                    return EventRow(eventData: eventObj);
                   },
                 ),
 
