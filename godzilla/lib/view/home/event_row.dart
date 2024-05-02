@@ -12,7 +12,7 @@ class EventRow extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             border: Border.all(
                 color:const Color.fromRGBO(63, 62, 76, 1),

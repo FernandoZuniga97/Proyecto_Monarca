@@ -58,9 +58,9 @@ class _HomeViewState extends State<HomeView> {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),
-      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
       home: Scaffold(
-        //backgroundColor: TColor.gray,
+        backgroundColor: Color.fromARGB(255, 200, 75, 13),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -277,4 +277,4 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
-}
+} 
