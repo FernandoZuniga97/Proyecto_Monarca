@@ -25,10 +25,12 @@ class Event {
       fechaEvento: data['fechaEvento'].toDate(),
       tipoEvento: data['tipoEvento'],
       ubicacion: data['ubicacion'],
-      presupuesto: data['presupuesto'],
+      presupuesto: data['presupuesto'].toString(),
       lugar: data['lugarEvento'],
     );
   }
+
+  get reference => null;
 
   Map<String, Object?> toFirestore() {
     return {

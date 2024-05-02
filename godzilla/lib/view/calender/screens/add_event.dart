@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:godzilla/common/color_extension.dart';
 import 'package:godzilla/view/add_subscription/event_form.dart';
 import 'package:godzilla/view/add_subscription/invitados_form.dart';
 
@@ -107,7 +108,7 @@ class _AddEventState extends State<AddEvent> {
                               }
                             });
                           },
-                          activeColor: Colors.green,
+                          activeColor: TColor.secondary,
                         ),
                       ],
                     ),
@@ -142,7 +143,7 @@ class _AddEventState extends State<AddEvent> {
                     },
                     style: ElevatedButton.styleFrom(
                       
-                      backgroundColor: Colors.green,
+                      backgroundColor: TColor.secondary,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     child: const Text(

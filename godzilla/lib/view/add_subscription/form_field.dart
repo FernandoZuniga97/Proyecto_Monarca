@@ -23,19 +23,21 @@ class CustomFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.white),
-        border: const OutlineInputBorder(),
+    return SingleChildScrollView(
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: labelText,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(13.0)),
+          ),
+        ),
+        validator: validator,
+        onSaved: onSaved,
+        readOnly: readOnly,
+        onTap: onTap,
+        keyboardType: keyboardType,
+        initialValue: initialValue,
       ),
-      validator: validator,
-      onSaved: onSaved,
-      readOnly: readOnly,
-      onTap: onTap,
-      keyboardType: keyboardType,
-      initialValue: initialValue,
     );
   }
 }

@@ -11,7 +11,9 @@ class SpendingBudgetsView extends StatefulWidget {
 
   @override
   State<SpendingBudgetsView> createState() => _SpendingBudgetsViewState();
+  
 }
+
 
 class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -133,20 +135,23 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
                     builder: (context, snapshot) {
                   if (snapshot.hasData) {
               final listaAdpersonal = snapshot.data!.docs;
-              return ListView.builder(
-                padding: 
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: listaAdpersonal.length,
-                itemBuilder: (context, index) {
-                  var user = listaAdpersonal[index].data() as Map? ?? {};  
-                  return BudgetsRow(
-                          bObj: user,
-                          onPressed: () {},
-                        colorSeed: index,
-                  );
-                },
+              return SingleChildScrollView(
+                child: ListView.builder(
+                  padding: 
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: listaAdpersonal.length,
+                  itemBuilder: (context, index) {
+                    var user = listaAdpersonal[index].data() as Map? ?? {};  
+                    return BudgetsRow(
+                      
+                            bObj: user,
+                            onPressed: () {},
+                          colorSeed: index,
+                    );
+                  },
+                ),
               );
             }
             else {

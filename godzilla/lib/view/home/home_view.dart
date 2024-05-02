@@ -58,17 +58,16 @@ class _HomeViewState extends State<HomeView> {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 200, 75, 13),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
                 height: media.width * 1.1,
-                decoration: BoxDecoration(
-                    color: TColor.gray70,
-                    borderRadius: const BorderRadius.only(
+                decoration: const BoxDecoration(
+                    color: Color.fromRGBO(63, 62, 76, 1),
+                    borderRadius:  BorderRadius.only(
                         bottomLeft: Radius.circular(25),
                         bottomRight: Radius.circular(25))),
                 child: Stack(
@@ -200,6 +199,7 @@ class _HomeViewState extends State<HomeView> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 height: 50,
                 decoration: const BoxDecoration(
+                  
                     color: Color.fromRGBO(63, 62, 76, 1),
                     borderRadius: BorderRadius.all(Radius.circular(14))),
                 child: Row(
@@ -232,7 +232,7 @@ class _HomeViewState extends State<HomeView> {
 
               if (isSubscription)
                 ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  padding: const EdgeInsets.all(1),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   
@@ -245,7 +245,7 @@ class _HomeViewState extends State<HomeView> {
 
               if (!isSubscription)
                 ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  padding: const EdgeInsets.all(1),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: upcomingEvents.length,

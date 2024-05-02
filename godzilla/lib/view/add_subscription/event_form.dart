@@ -66,11 +66,11 @@ class _EventFormState extends State<EventForm> {
           ),
           const SizedBox(height: 24),
           TextFormField(
-            style: const TextStyle(color: Colors.white),
             decoration: const InputDecoration(
               labelText: 'Fecha del evento',
-              labelStyle: TextStyle(color: Colors.white),
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(13.0)),
+              ),
             ),
             readOnly: true,
             controller: _fechaEventoController,
