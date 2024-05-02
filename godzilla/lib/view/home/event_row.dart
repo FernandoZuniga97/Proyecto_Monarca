@@ -8,11 +8,11 @@ class EventRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 0),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(0),
           decoration: BoxDecoration(
             border: Border.all(
                 color:const Color.fromRGBO(63, 62, 76, 1),

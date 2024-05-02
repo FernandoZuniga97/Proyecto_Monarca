@@ -45,7 +45,8 @@ class _EventsViewState extends State<EventsView> {
                         },
                         
                         child: SizedBox(
-                          width: 350,
+                          height: 170,
+                          width: 340,
                           child: Container(
                             padding: const EdgeInsets.all(1),
                             
