@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:godzilla/common/color_extension.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({super.key});
