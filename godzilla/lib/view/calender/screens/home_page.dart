@@ -14,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
-}
+}   
 
 class _MyHomePageState extends State<MyHomePage> {
   late DateTime _focusedDay;
@@ -193,7 +193,7 @@ Future<void> showEditEventDialog(BuildContext context, Map<String, dynamic> data
                       decoration: const InputDecoration(labelText: 'Nombre del evento'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Por favor ingrese un nombre para el evento';
+                          return 'Ingrese un nombre para el evento';
                         }
                         return null;
                       },
